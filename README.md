@@ -18,9 +18,18 @@ d-----        2025/12/15     22:40                bk
 ```
 
 ## 使用方法
-
 ```python
 
+# 自行调用封装的类函数，具体查看test.py
+
 from parse import ImageCompressor
+
+compressor = ImageCompressor(
+            input_dir="/path/to/your/7z/dirname/",
+            output_mobile_dir="/path/to/save/portrait/pic",
+            output_pc_dir="/path/to/save/nois_portrait/pic",
+            allow_clean_empty_dir=True,
+            effect_archive_suffix=".7z.001"
+            )
 
 ```

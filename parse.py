@@ -295,29 +295,6 @@ class ImageCompressor:
             info(f"解压过程中发生异常: {e}")
             return False
 
-    # def run(self):
-    #     """主运行函数"""
-    #     info("=" * 60)
-    #     info("图片分类与压缩工具")
-    #     info("=" * 60)
-
-    #     # 步骤1: 解压分卷文件
-    #     info("1. 解压分卷压缩文件...")
-    #     archive_path = os.path.join(self.TARGET_DIR, "063", "063.7z.001")
-    #     password = self.passwd
-
-    #     if os.path.exists(archive_path):
-    #         self.uncompress_volume(archive_path, password)
-    #     else:
-    #         info(f"未找到压缩文件: {archive_path}")
-
-    #     # 步骤2: 清理空目录
-    #     info("2. 清理空目录...")
-    #     if self.allow_clean_empty_dir:
-    #         self.clean_empty_dirs()
-
-    #     # 步骤3: 处理图片
-    #     info("3. 处理图片分类...")
-    #     self.process_images()
-
-    #     info("所有操作完成!")
+    @staticmethod
+    def remove_archive():
+        return None
