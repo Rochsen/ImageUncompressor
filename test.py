@@ -4,6 +4,8 @@ import os
 import sys
 import glob
 import re
+import shutil
+import stat
 
 NUMBER_MATCH = re.compile(r"(No\.)?(\d{3,4})")
 
@@ -50,7 +52,10 @@ def main(dry_run=False) -> None:
 
         # 测试路径查找
         if dry_run:
-            dry_run_func(compressor)
+            archive_paths = dry_run_func(compressor=compressor)
+            for issue_index, archive_path in archive_paths.items():
+                res = (os.path.dirname(archive_path))
+                print(res)
 
         else:
             password = "https://www.91xiezhen.top"
@@ -73,7 +78,26 @@ def main(dry_run=False) -> None:
                 print("3. 处理图片分类...")
                 compressor.process_images(issue_index)
 
-                print("所有操作完成!")
+                # 步骤4: 删除压缩包
+                print("4. 删除路径")
+                res = os.path.dirname(archive_path)
+                try:
+                    shutil.rmtree(res)
+                except PermissionError:
+                    # 递归修改文件夹内所有文件和子文件夹的权限
+                    for root, dirs, files in os.walk(res):
+                        for d in dirs:
+                            os.chmod(os.path.join(root, d), stat.S_IWRITE)
+                        for f in files:
+                            os.chmod(os.path.join(root, f), stat.S_IWRITE)
+                            
+                    # 重新尝试删除
+                    shutil.rmtree(res)
+
+                except Exception as e:
+                    print(f"无法删除文件 {res}: {e}")
+
+            print("所有操作完成!")
 
     except KeyboardInterrupt:
         print("用户中断操作")

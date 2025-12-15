@@ -144,7 +144,7 @@ class ImageCompressor:
                         if unique_label:
                             target_path = os.path.join(
                                 self.MOBILE_PAPER_PATH,
-                                f"{unique_label}_{mobile_index:04d}{file_ext}"
+                                f"mobile_{unique_label}_{mobile_index:04d}{file_ext}"
                             )
                         else:
                             target_path = os.path.join(
@@ -156,7 +156,7 @@ class ImageCompressor:
                         if unique_label:
                             target_path = os.path.join(
                                 self.PC_PAPER_PATH,
-                                f"{unique_label}_{pc_index:04d}{file_ext}"
+                                f"pc_{unique_label}_{pc_index:04d}{file_ext}"
                             )
                         else:
                             target_path = os.path.join(
