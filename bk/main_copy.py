@@ -36,13 +36,13 @@ class ImageCompressor:
         # 1. 从PATH中查找
         bandzip_path = shutil.which('Bandizip.exe')
         if bandzip_path and os.path.exists(bandzip_path):
-            print("方式1找到 Bandizip 程序: {bandzip_path}")
+            print(f"方式1找到 Bandizip 程序: {bandzip_path}")
             return bandzip_path
 
         # 2. 检查常见安装位置
         for path in self.BANDZIP_PATHS:
             if os.path.exists(path):
-                print("方式2找到 Bandizip 程序: {bandzip_path}")
+                print(f"方式2找到 Bandizip 程序: {bandzip_path}")
                 return path
 
         # 3. 尝试在目标目录附近查找
@@ -51,7 +51,7 @@ class ImageCompressor:
             script_dir = os.path.dirname(os.path.abspath(__file__))
             possible_path = os.path.join(script_dir, "Bandizip.exe")
             if os.path.exists(possible_path):
-                print("方式3找到 Bandizip 程序: {bandzip_path}")
+                print(f"方式3找到 Bandizip 程序: {bandzip_path}")
                 return possible_path
         except:
             pass
