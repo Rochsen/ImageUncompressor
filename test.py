@@ -80,22 +80,7 @@ def main(dry_run=False) -> None:
 
                 # 步骤4: 删除压缩包
                 print("4. 删除路径")
-                res = os.path.dirname(archive_path)
-                try:
-                    shutil.rmtree(res)
-                except PermissionError:
-                    # 递归修改文件夹内所有文件和子文件夹的权限
-                    for root, dirs, files in os.walk(res):
-                        for d in dirs:
-                            os.chmod(os.path.join(root, d), stat.S_IWRITE)
-                        for f in files:
-                            os.chmod(os.path.join(root, f), stat.S_IWRITE)
-                            
-                    # 重新尝试删除
-                    shutil.rmtree(res)
-
-                except Exception as e:
-                    print(f"无法删除文件 {res}: {e}")
+                compressor.remove_archive(archive_path)
 
             print("所有操作完成!")
 

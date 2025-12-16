@@ -1,5 +1,6 @@
 import os
 import sys
+import stat
 import shutil
 import subprocess
 from enum import Enum
@@ -296,5 +297,27 @@ class ImageCompressor:
             return False
 
     @staticmethod
-    def remove_archive():
-        return None
+    def remove_archive(archive_path: str):
+        """删除压缩包所在的目录
+
+        Args:
+            archive_path (str): 压缩包路径
+        """
+        res = os.path.dirname(archive_path)
+        try:
+            shutil.rmtree(res)
+            
+        except PermissionError:
+            # 递归修改文件夹内所有文件和子文件夹的权限
+            
+            for root, dirs, files in os.walk(res):
+                for d in dirs:
+                    os.chmod(os.path.join(root, d), stat.S_IWRITE)
+                for f in files:
+                    os.chmod(os.path.join(root, f), stat.S_IWRITE)
+
+            # 重新尝试删除
+            shutil.rmtree(res)
+
+        except Exception as e:
+            info(f"无法删除文件 {res}: {e}")
