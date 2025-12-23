@@ -8,9 +8,11 @@ from logging import basicConfig, INFO, info
 from PIL import Image
 from typing import Optional, Tuple
 
-
+# 日志配置
 basicConfig(level=INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
+# 处理图片文件的后缀配置（支持的图片格式）
+SUPPORTED_IMAGE_FORMATS = (".jpg", ".jpeg", ".png")
 
 class BANDIZIP_PATHS(Enum):
     """
@@ -54,9 +56,6 @@ class ImageCompressor:
 
         # 是否清理空目录
         self.allow_clean_empty_dir = allow_clean_empty_dir
-
-        # 支持的图片格式
-        self.SUPPORTED_IMAGE_FORMATS = (".jpg", ".jpeg", ".png")
 
         # 创建必要的目录
         self._create_output_directories()
@@ -124,7 +123,7 @@ class ImageCompressor:
         for root, dirs, files in os.walk(self.TARGET_DIR):
             for file in files:
                 # 检查文件扩展名
-                if not file.lower().endswith(self.SUPPORTED_IMAGE_FORMATS):
+                if not file.lower().endswith(SUPPORTED_IMAGE_FORMATS):
                     continue
 
                 file_path = os.path.join(root, file)
